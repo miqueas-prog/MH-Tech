@@ -12,9 +12,20 @@
 </head>
 <body>
 
+<!-- FONDO DE PARTÍCULAS INTERACTIVAS -->
+<canvas id="particle-canvas"></canvas>
+
 <header class="site-header">
   <div class="header-inner">
     <a href="#top" class="logo">MH<span>TECH</span></a>
+    
+    <!-- RELOJ EN TIEMPO REAL - CÓRDOBA -->
+    <div class="cba-clock" id="cba-clock" aria-label="Hora actual en Córdoba, Argentina">
+      <span class="clock-dot"></span>
+      <span class="clock-time">--:--:--</span>
+      <span class="clock-tz">CBA, Arg</span>
+    </div>
+
     <nav class="main-nav" id="main-nav">
       <a href="#servicios" data-section="servicios">Servicios</a>
       <a href="#proceso" data-section="proceso">Cómo trabajo</a>
@@ -85,19 +96,19 @@
   <div class="stats">
     <div class="stats-inner">
       <div class="stat-item">
-        <div class="stat-num">100<span>+</span></div>
+        <div class="stat-num" data-target="100" data-suffix="+">0<span>+</span></div>
         <div class="stat-label">Tickets resueltos<br>por mes</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num"><span>2</span></div>
+        <div class="stat-num" data-target="2" data-suffix="">0<span></span></div>
         <div class="stat-label">Cuentas corporativas<br>activas</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">24<span>hs</span></div>
+        <div class="stat-num" data-target="24" data-suffix="hs">0<span>hs</span></div>
         <div class="stat-label">SLA operativo<br>promedio</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num"><span>3</span></div>
+        <div class="stat-num" data-target="3" data-suffix="">0<span></span></div>
         <div class="stat-label">Proyectos propios<br>desarrollados</div>
       </div>
     </div>
@@ -179,11 +190,12 @@
     <div class="inner">
       <div class="section-header">
         <span class="section-tag">Herramientas</span>
-        <h2>Stack tecnológico</h2>
+        <h2>Stack tecnológico completo</h2>
+        <p>Ecosistema de tecnologías y plataformas que domino para el soporte, análisis de datos y desarrollo.</p>
       </div>
       <div class="stack-grid">
         <div class="stack-cat">
-          <div class="stack-cat-title">ITSM &amp; Soporte</div>
+          <div class="stack-cat-title">ITSM &amp; Soporte Operativo</div>
           <div class="stack-tags">
             <span class="stack-tag">Jira</span>
             <span class="stack-tag">SMAX</span>
@@ -205,7 +217,7 @@
           </div>
         </div>
         <div class="stack-cat">
-          <div class="stack-cat-title">Desarrollo &amp; IA</div>
+          <div class="stack-cat-title">Desarrollo, IA &amp; Ecosistema</div>
           <div class="stack-tags">
             <span class="stack-tag">HTML/CSS/JS</span>
             <span class="stack-tag">Git &amp; GitHub</span>
