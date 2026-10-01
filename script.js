@@ -2,7 +2,7 @@
    1. Menú mobile
    2. Scroll-spy
    3. Panel de tickets animado
-   4. Reloj en tiempo real (Córdoba, Argentina)
+   4. Relojes en tiempo real (Córdoba, Argentina)
    5. Contadores dinámicos de estadísticas
    6. Fondo de partículas interactivas
    7. Copiar email
@@ -108,19 +108,23 @@ function initTicketPanel() {
   }, 4000);
 }
 
-/* 4. RELOJ EN TIEMPO REAL (CÓRDOBA) ---------------------------------- */
+/* 4. RELOJES EN TIEMPO REAL (CÓRDOBA) -------------------------------- */
 function initCordobaClock() {
   const clockEl = document.querySelector('#cba-clock .clock-time');
-  if (!clockEl) return;
+  const sideClockEl = document.getElementById('cba-clock-side');
 
   function updateClock() {
     try {
       const now = new Date();
       const options = { timeZone: 'America/Argentina/Cordoba', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-      clockEl.textContent = new Intl.DateTimeFormat('es-AR', options).format(now);
+      const timeStr = new Intl.DateTimeFormat('es-AR', options).format(now);
+      if (clockEl) clockEl.textContent = timeStr;
+      if (sideClockEl) sideClockEl.textContent = timeStr;
     } catch (e) {
       const now = new Date();
-      clockEl.textContent = now.toTimeString().split(' ')[0];
+      const timeStr = now.toTimeString().split(' ')[0];
+      if (clockEl) clockEl.textContent = timeStr;
+      if (sideClockEl) sideClockEl.textContent = timeStr;
     }
   }
 
@@ -213,7 +217,6 @@ function initParticles() {
       ctx.fillStyle = 'rgba(51, 214, 224, 0.4)';
       ctx.fill();
 
-      // Conectar partículas cercanas o con el mouse
       for (let j = index + 1; j < particles.length; j++) {
         const p2 = particles[j];
         const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
