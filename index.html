@@ -7,13 +7,13 @@
 <meta name="description" content="Especialista en Soporte Técnico N1/N2, análisis de datos con PL/SQL y desarrollo web a medida para empresas y equipos técnicos.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=4">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+ 
 <header class="site-header">
-  <div class="wrap header-inner">
+  <div class="header-inner wrap">
     <a href="#top" class="logo">MH<span>TECH</span></a>
     <nav class="main-nav" id="main-nav">
       <a href="#servicios" data-section="servicios">Servicios</a>
@@ -22,27 +22,32 @@
       <a href="#proyectos" data-section="proyectos">Proyectos</a>
       <a href="#contacto" data-section="contacto">Contacto</a>
     </nav>
-    <a href="#contacto" class="btn btn-ghost nav-cta">Escribime</a>
-    <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-right">
+      <button class="theme-btn" id="theme-toggle" aria-label="Cambiar tema">☀️</button>
+      <a href="#contacto" class="btn btn-ghost nav-cta">Escribime</a>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </header>
-
+ 
 <main id="top">
-
+ 
+  <!-- HERO -->
   <section class="hero">
     <div class="wrap hero-inner">
       <div class="hero-copy">
-        <p class="kicker">IT Support N1/N2 &amp; Data Analytics &amp; Front End Developer · Miqueas Heredia</p>
-        <h1>Tu infraestructura técnica<br>no debería depender<br>de soluciones lentas.</h1>
-        <p class="hero-sub">Ayudo a empresas y equipos de soporte a resolver incidentes críticos (con trayectoria en cuentas corporativas como Claro y General Motors), optimizar bases de datos con PL/SQL y desarrollar presencia web sin depender de agencias grandes.</p>
+        <div class="hero-badge"><span class="badge-dot"></span>Disponible para nuevos proyectos</div>
+        <p class="kicker">IT Support N1/N2 · Data Analytics · Developer</p>
+        <h1>Tu operación técnica<br>no debería depender<br>de soluciones <span class="hl">lentas.</span></h1>
+        <p class="hero-sub">Ayudo a empresas y equipos de soporte a resolver incidentes críticos, optimizar bases de datos con PL/SQL y desarrollar presencia web — con trayectoria real en cuentas corporativas como Claro y General Motors.</p>
         <div class="hero-actions">
           <a href="#contacto" class="btn btn-primary">Contame tu caso</a>
           <a href="#servicios" class="btn btn-text">Ver servicios ↓</a>
         </div>
       </div>
-
+ 
       <div class="hero-visual" aria-hidden="true">
         <div class="ticket-panel" id="ticket-panel">
           <div class="ticket-panel-head">
@@ -52,6 +57,11 @@
             <span class="ticket-panel-title">itsm-ops-live</span>
           </div>
           <div class="ticket-list" id="ticket-list">
+            <div class="ticket-row" data-id="4468">
+              <span class="ticket-id">#4468</span>
+              <span class="ticket-desc">Automatización con Power Automate</span>
+              <span class="ticket-status status-resolved">Resuelto</span>
+            </div>
             <div class="ticket-row" data-id="4471">
               <span class="ticket-id">#4471</span>
               <span class="ticket-desc">VPN no conecta — cuenta Claro</span>
@@ -62,65 +72,96 @@
               <span class="ticket-desc">Login corporativo bloqueado — GM</span>
               <span class="ticket-status status-progress">En curso</span>
             </div>
-            <div class="ticket-row" data-id="4470">
-              <span class="ticket-id">#4470</span>
-              <span class="ticket-desc">Sync de base de datos técnicos</span>
-              <span class="ticket-status status-resolved">Resuelto</span>
-            </div>
           </div>
           <div class="ticket-foot">SLA promedio · 24hs operativo</div>
         </div>
       </div>
     </div>
   </section>
-
+ 
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <div class="stat-num">100<span>+</span></div>
+        <div class="stat-label">Tickets resueltos<br>por mes</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span>2</span></div>
+        <div class="stat-label">Cuentas corporativas<br>activas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">24<span>hs</span></div>
+        <div class="stat-label">SLA operativo<br>promedio</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span>3</span></div>
+        <div class="stat-label">Proyectos propios<br>desarrollados</div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- SERVICES -->
   <section id="servicios" class="services">
     <div class="wrap">
-      <h2>Áreas de especialización</h2>
-
-      <div class="service-list">
-        <article class="service accent-cyan">
+      <div class="section-header">
+        <span class="section-tag">Especialización</span>
+        <h2>Lo que puedo hacer por tu equipo</h2>
+        <p>Soluciones técnicas reales para empresas que necesitan soporte operativo, datos confiables y presencia digital.</p>
+      </div>
+      <div class="service-grid">
+        <div class="service-card">
+          <span class="service-icon">🖥️</span>
           <h3>Soporte Técnico N1 / N2 e ITSM</h3>
-          <p>Gestión integral de incidentes y requerimientos técnicos utilizando plataformas como Jira, SMAX, Remedy y Confluence. Coordinación con centros de seguridad (GSOC).</p>
-        </article>
-
-        <article class="service accent-violet">
+          <p>Gestión integral de incidentes y requerimientos técnicos usando Jira, SMAX, Remedy y Confluence. Coordinación con centros de seguridad (GSOC).</p>
+          <span class="service-arrow">Ver más →</span>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">⚡</span>
           <h3>Bases de Datos &amp; Automatización</h3>
-          <p>Diseño de consultas y procesamiento de datos con PL/SQL y SQL Server. Creación de flujos automatizados con Power Automate para reducir tareas manuales repetitivas.</p>
-        </article>
-
-        <article class="service accent-cyan">
+          <p>Diseño de consultas y procesamiento de datos con PL/SQL y SQL Server. Flujos automatizados con Power Automate para eliminar tareas manuales repetitivas.</p>
+          <span class="service-arrow">Ver más →</span>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">📊</span>
           <h3>Monitoreo &amp; Observabilidad</h3>
-          <p>Seguimiento de APIs y métricas operativas a través de Kibana para asegurar la estabilidad continua de la infraestructura tecnológica.</p>
-        </article>
-
-        <article class="service accent-violet">
+          <p>Seguimiento de APIs y métricas operativas en Kibana para asegurar la estabilidad continua de tu infraestructura tecnológica.</p>
+          <span class="service-arrow">Ver más →</span>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">🌐</span>
           <h3>Desarrollo Web &amp; Landing Pages</h3>
-          <p>Sitios y aplicaciones web livianas, pensadas para mostrar un servicio con total claridad: código limpio y sin plantillas genéricas ni plugins de más.</p>
-        </article>
+          <p>Sitios y aplicaciones web livianas, pensadas para mostrar un servicio con total claridad: código limpio, sin plantillas genéricas.</p>
+          <span class="service-arrow">Ver más →</span>
+        </div>
       </div>
     </div>
   </section>
-
+ 
+  <!-- PROCESS -->
   <section id="proceso" class="process">
-    <div class="wrap">
-      <h2>Cómo trabajo</h2>
+    <div class="wrap process-grid">
+      <div class="process-sticky">
+        <span class="section-tag">Metodología</span>
+        <h2>Cómo trabajo con cada cliente</h2>
+        <p>Un proceso claro, sin sorpresas, orientado a resultados medibles.</p>
+      </div>
       <ol class="process-steps">
-        <li>
+        <li class="process-step">
           <span class="step-n">1</span>
           <div>
             <h3>Diagnóstico Técnico</h3>
             <p>Analizamos el incidente o cuello de botella real en el flujo operativo, identificando causas raíz en redes, accesos o sistemas.</p>
           </div>
         </li>
-        <li>
+        <li class="process-step">
           <span class="step-n">2</span>
           <div>
             <h3>Implementación y Mejora</h3>
             <p>Aplico la solución mediante tickets, scripts SQL, automatizaciones o desarrollo web, asegurando procesos limpios y mantenibles.</p>
           </div>
         </li>
-        <li>
+        <li class="process-step">
           <span class="step-n">3</span>
           <div>
             <h3>Estabilidad y Seguimiento</h3>
@@ -130,52 +171,98 @@
       </ol>
     </div>
   </section>
-
-  <section id="stack" class="stack">
+ 
+  <!-- STACK -->
+  <section id="stack" class="stack-section">
     <div class="wrap">
-      <h2>Herramientas y Tecnologías</h2>
-      <ul class="stack-list">
-        <li>Jira / SMAX / Remedy</li>
-        <li>PL/SQL / SQL Server</li>
-        <li>Kibana (APIs &amp; Data)</li>
-        <li>Power Automate / M365</li>
-        <li>HTML / CSS / JS</li>
-        <li>Git &amp; GitHub</li>
-      </ul>
-    </div>
-  </section>
-
-  <section id="proyectos" class="services" style="padding-top: 0;">
-    <div class="wrap">
-      <h2>Proyecto Destacado</h2>
-      <div class="service-list">
-        <article class="service accent-violet" style="grid-column: 1 / -1;">
-          <h3>FIXIO — Plataforma de Optimización Técnica</h3>
-          <p>Arquitectura relacional en SQL/PL-SQL diseñada para centralizar el conocimiento técnico y optimizar el escalamiento de incidentes, incorporando control de accesos por roles (RBAC) para minimizar el MTTR.</p>
-          <p style="margin-top: 1rem;"><a href="https://github.com/miqueas-prog" target="_blank" rel="noopener" style="color: var(--accent-cyan); font-weight: 500; text-decoration: none;">Ver repositorio en GitHub →</a></p>
-        </article>
+      <div class="section-header">
+        <span class="section-tag">Herramientas</span>
+        <h2>Stack tecnológico</h2>
+      </div>
+      <div class="stack-grid">
+        <div class="stack-cat">
+          <div class="stack-cat-title">ITSM &amp; Soporte</div>
+          <div class="stack-tags">
+            <span class="stack-tag">Jira</span>
+            <span class="stack-tag">SMAX</span>
+            <span class="stack-tag">Remedy</span>
+            <span class="stack-tag">Confluence</span>
+            <span class="stack-tag">Stealth</span>
+            <span class="stack-tag">GSOC</span>
+          </div>
+        </div>
+        <div class="stack-cat">
+          <div class="stack-cat-title">Datos &amp; Automatización</div>
+          <div class="stack-tags">
+            <span class="stack-tag">PL/SQL</span>
+            <span class="stack-tag">SQL Server</span>
+            <span class="stack-tag">Kibana</span>
+            <span class="stack-tag">Power Automate</span>
+            <span class="stack-tag">Power Apps</span>
+            <span class="stack-tag">Excel Avanzado</span>
+          </div>
+        </div>
+        <div class="stack-cat">
+          <div class="stack-cat-title">Desarrollo &amp; IA</div>
+          <div class="stack-tags">
+            <span class="stack-tag">HTML/CSS/JS</span>
+            <span class="stack-tag">Git &amp; GitHub</span>
+            <span class="stack-tag">FlutterFlow</span>
+            <span class="stack-tag">Firebase</span>
+            <span class="stack-tag">Claude AI</span>
+            <span class="stack-tag">Vibe Coding</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
-
-</main>
-
-<footer id="contacto" class="site-footer">
-  <div class="wrap footer-inner">
-    <div>
-      <p class="footer-lead">¿Requerís asistencia técnica especializada o un desarrollo web?</p>
-      <a href="mailto:mikeasheredia33@gmail.com" class="btn btn-primary" id="copy-email" data-email="mikeasheredia33@gmail.com">mikeasheredia33@gmail.com</a>
+ 
+  <!-- PROJECTS -->
+  <section id="proyectos" class="projects">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-tag">Proyectos</span>
+        <h2>Lo que construí</h2>
+      </div>
+      <div class="project-card">
+        <div>
+          <span class="project-tag">SQL / PL-SQL · RBAC · ITSM</span>
+          <h3>FIXIO — Plataforma de Optimización Técnica</h3>
+          <p>Arquitectura relacional diseñada para centralizar el conocimiento técnico y optimizar el escalamiento de incidentes. Incorpora control de accesos por roles (RBAC) para minimizar el MTTR y eliminar la búsqueda en sistemas inconexos.</p>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/miqueas-prog" target="_blank" rel="noopener" class="project-link">Ver en GitHub →</a>
+          <a href="https://miqueas-prog.github.io" target="_blank" rel="noopener" class="project-link">Ver Portafolio →</a>
+        </div>
+      </div>
     </div>
+  </section>
+ 
+</main>
+ 
+<!-- FOOTER -->
+<footer id="contacto" class="site-footer">
+  <div class="footer-cta">
+    <div class="wrap">
+      <span class="footer-cta-tag">Contacto</span>
+      <h2>¿Tu equipo necesita<br>soporte <span class="hl">que funcione</span>?</h2>
+      <p>Escribime y en menos de 24 horas te respondo con un diagnóstico inicial sin costo.</p>
+      <div class="footer-cta-actions">
+        <a href="mailto:mikeasheredia33@gmail.com" class="btn btn-primary" id="copy-email" data-email="mikeasheredia33@gmail.com">mikeasheredia33@gmail.com</a>
+        <a href="tel:+543518587200" class="btn btn-ghost">351 858-7200</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">MH TECH · Miqueas Heredia · Córdoba, Argentina</span>
     <div class="footer-links">
-      <a href="tel:+543518587200">351 858-7200</a>
       <a href="https://www.linkedin.com/in/miqueas-heredia-60b158146" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://github.com/miqueas-prog" target="_blank" rel="noopener">GitHub</a>
       <a href="https://miqueas-prog.github.io" target="_blank" rel="noopener">Portafolio</a>
     </div>
   </div>
-  <p class="footer-copy">MH TECH · Miqueas Heredia · Córdoba, Argentina</p>
 </footer>
-
+ 
 <script src="script.js" defer></script>
 </body>
 </html>
