@@ -2,10 +2,13 @@
    1. Menú mobile
    2. Scroll-spy
    3. Panel de tickets animado
-   4. Copiar email
-   5. Toggle día/noche
-   6. Botón flotante WhatsApp
-   7. Animación de entrada al scroll (reveal)
+   4. Reloj en tiempo real (Córdoba, Argentina)
+   5. Contadores dinámicos de estadísticas
+   6. Fondo de partículas interactivas
+   7. Copiar email
+   8. Toggle día/noche
+   9. Botón flotante WhatsApp
+   10. Animación de entrada al scroll (reveal)
 */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,6 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileNav();
   initScrollSpy();
   initTicketPanel();
+  initCordobaClock();
+  initStatCounters();
+  initParticles();
   initCopyEmail();
   initTheme();
   initWhatsApp();
@@ -68,14 +74,14 @@ function initTicketPanel() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const queue = [
-    { id: '4471', desc: 'VPN no conecta — cuenta Claro',       status: 'open'     },
+    { id: '4471', desc: 'VPN no conecta — cuenta Claro',     status: 'open'     },
     { id: '4472', desc: 'Login corporativo bloqueado — GM',    status: 'progress' },
     { id: '4470', desc: 'Sync de base de datos técnicos',        status: 'resolved' },
     { id: '4473', desc: 'Incidente de red y conectividad',     status: 'open'     },
     { id: '4474', desc: 'Monitoreo de APIs en Kibana',          status: 'progress' },
     { id: '4468', desc: 'Automatización con Power Automate',    status: 'resolved' },
     { id: '4475', desc: 'Acceso bloqueado — cuenta GM',         status: 'open'     },
-    { id: '4476', desc: 'Script SQL para métricas operativas',  status: 'resolved' },
+    { id: '4476', desc: 'Script SQL para métricas operativas',   status: 'resolved' },
   ];
 
   const labels = { open: 'Abierto', progress: 'En curso', resolved: 'Resuelto' };
@@ -102,7 +108,145 @@ function initTicketPanel() {
   }, 4000);
 }
 
-/* 4. COPIAR EMAIL ---------------------------------------------------- */
+/* 4. RELOJ EN TIEMPO REAL (CÓRDOBA) ---------------------------------- */
+function initCordobaClock() {
+  const clockEl = document.querySelector('#cba-clock .clock-time');
+  if (!clockEl) return;
+
+  function updateClock() {
+    try {
+      const now = new Date();
+      const options = { timeZone: 'America/Argentina/Cordoba', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+      clockEl.textContent = new Intl.DateTimeFormat('es-AR', options).format(now);
+    } catch (e) {
+      const now = new Date();
+      clockEl.textContent = now.toTimeString().split(' ')[0];
+    }
+  }
+
+  updateClock();
+  setInterval(updateClock, 1000);
+}
+
+/* 5. CONTADORES DINÁMICOS DE ESTADÍSTICAS --------------------------- */
+function initStatCounters() {
+  const statsSection = document.querySelector('.stats');
+  const numbers = document.querySelectorAll('.stat-num');
+  if (!statsSection || !numbers.length) return;
+
+  let animated = false;
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting || animated) return;
+      animated = true;
+
+      numbers.forEach(num => {
+        const target = parseInt(num.getAttribute('data-target'), 10);
+        const suffix = num.getAttribute('data-suffix') || '';
+        let current = 0;
+        const increment = Math.max(1, Math.floor(target / 30));
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          num.innerHTML = `${current}<span>${suffix}</span>`;
+        }, 40);
+      });
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(statsSection);
+}
+
+/* 6. FONDO DE PARTÍCULAS INTERACTIVAS ------------------------------- */
+function initParticles() {
+  const canvas = document.getElementById('particle-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  let width = canvas.width = window.innerWidth;
+  let height = canvas.height = window.innerHeight;
+
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  const mouse = { x: null, y: null, radius: 150 };
+  window.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+  window.addEventListener('mouseout', () => {
+    mouse.x = null;
+    mouse.y = null;
+  });
+
+  const particleCount = Math.min(width > 768 ? 60 : 30, 70);
+  const particles = [];
+
+  for (let i = 0; i < particleCount; i++) {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.6,
+      vy: (Math.random() - 0.5) * 0.6,
+      radius: Math.random() * 2 + 1
+    });
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+
+    particles.forEach((p, index) => {
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0 || p.x > width) p.vx *= -1;
+      if (p.y < 0 || p.y > height) p.vy *= -1;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(51, 214, 224, 0.4)';
+      ctx.fill();
+
+      // Conectar partículas cercanas o con el mouse
+      for (let j = index + 1; j < particles.length; j++) {
+        const p2 = particles[j];
+        const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = `rgba(51, 214, 224, ${0.15 * (1 - dist / 120)})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+
+      if (mouse.x !== null && mouse.y !== null) {
+        const mouseDist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+        if (mouseDist < mouse.radius) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(180, 77, 255, ${0.25 * (1 - mouseDist / mouse.radius)})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+}
+
+/* 7. COPIAR EMAIL ---------------------------------------------------- */
 function initCopyEmail() {
   const btn = document.getElementById('copy-email');
   if (!btn) return;
@@ -120,7 +264,7 @@ function initCopyEmail() {
   });
 }
 
-/* 5. TOGGLE DÍA / NOCHE -------------------------------------------- */
+/* 8. TOGGLE DÍA / NOCHE -------------------------------------------- */
 function initTheme() {
   const btn = document.getElementById('theme-toggle');
   if (!btn) return;
@@ -140,7 +284,7 @@ function initTheme() {
   });
 }
 
-/* 6. WHATSAPP FLOTANTE ---------------------------------------------- */
+/* 9. WHATSAPP FLOTANTE ---------------------------------------------- */
 function initWhatsApp() {
   if (document.getElementById('whatsapp-float')) return;
 
@@ -162,7 +306,7 @@ function initWhatsApp() {
     backgroundColor: '#25d366',
     color:            '#fff',
     width:           '56px',
-    height:           '56px',
+    height:          '56px',
     borderRadius:    '50%',
     display:          'flex',
     alignItems:      'center',
@@ -173,18 +317,18 @@ function initWhatsApp() {
   });
 
   btn.addEventListener('mouseenter', () => {
-    btn.style.transform        = 'scale(1.1)';
+    btn.style.transform         = 'scale(1.1)';
     btn.style.backgroundColor = '#20ba5a';
   });
   btn.addEventListener('mouseleave', () => {
-    btn.style.transform        = 'scale(1)';
+    btn.style.transform         = 'scale(1)';
     btn.style.backgroundColor = '#25d366';
   });
 
   document.body.appendChild(btn);
 }
 
-/* 7. SCROLL REVEAL -------------------------------------------------- */
+/* 10. SCROLL REVEAL -------------------------------------------------- */
 function initReveal() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
