@@ -13,7 +13,7 @@
 <body>
 
 <header class="site-header">
-  <div class="header-inner wrap">
+  <div class="header-inner">
     <a href="#top" class="logo">MH<span>TECH</span></a>
     <nav class="main-nav" id="main-nav">
       <a href="#servicios" data-section="servicios">Servicios</a>
@@ -36,7 +36,7 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="wrap hero-inner">
+    <div class="inner hero-inner">
       <div class="hero-copy">
         <div class="hero-badge"><span class="badge-dot"></span>Disponible para nuevos proyectos</div>
         <p class="kicker">IT Support N1/N2 · Data Analytics · Developer</p>
@@ -51,9 +51,11 @@
       <div class="hero-visual" aria-hidden="true">
         <div class="ticket-panel" id="ticket-panel">
           <div class="ticket-panel-head">
-            <span class="dot dot-red"></span>
-            <span class="dot dot-yellow"></span>
-            <span class="dot dot-green"></span>
+            <div class="ticket-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
             <span class="ticket-panel-title">itsm-ops-live</span>
           </div>
           <div class="ticket-list" id="ticket-list">
@@ -102,8 +104,8 @@
   </div>
 
   <!-- SERVICES -->
-  <section id="servicios" class="services">
-    <div class="wrap">
+  <section id="servicios" class="section-wrap services">
+    <div class="inner">
       <div class="section-header">
         <span class="section-tag">Especialización</span>
         <h2>Lo que puedo hacer por tu equipo</h2>
@@ -139,8 +141,8 @@
   </section>
 
   <!-- PROCESS -->
-  <section id="proceso" class="process">
-    <div class="wrap process-grid">
+  <section id="proceso" class="section-wrap process">
+    <div class="inner process-grid">
       <div class="process-sticky">
         <span class="section-tag">Metodología</span>
         <h2>Cómo trabajo con cada cliente</h2>
@@ -173,8 +175,8 @@
   </section>
 
   <!-- STACK -->
-  <section id="stack" class="stack-section">
-    <div class="wrap">
+  <section id="stack" class="section-wrap stack-section">
+    <div class="inner">
       <div class="section-header">
         <span class="section-tag">Herramientas</span>
         <h2>Stack tecnológico</h2>
@@ -218,8 +220,8 @@
   </section>
 
   <!-- PROJECTS -->
-  <section id="proyectos" class="projects">
-    <div class="wrap">
+  <section id="proyectos" class="section-wrap projects">
+    <div class="inner">
       <div class="section-header">
         <span class="section-tag">Proyectos</span>
         <h2>Lo que construí</h2>
@@ -243,7 +245,7 @@
 <!-- FOOTER -->
 <footer id="contacto" class="site-footer">
   <div class="footer-cta">
-    <div class="wrap">
+    <div class="inner">
       <span class="footer-cta-tag">Contacto</span>
       <h2>¿Tu equipo necesita<br>soporte <span class="hl">que funcione</span>?</h2>
       <p>Escribime y en menos de 24 horas te respondo con un diagnóstico inicial sin costo.</p>
@@ -254,11 +256,13 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">MH TECH · Miqueas Heredia · Córdoba, Argentina</span>
-    <div class="footer-links">
-      <a href="https://www.linkedin.com/in/miqueas-heredia-60b158146" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/miqueas-prog" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://miqueas-prog.github.io" target="_blank" rel="noopener">Portafolio</a>
+    <div class="inner footer-bottom-inner">
+      <span class="footer-copy">MH TECH · Miqueas Heredia · Córdoba, Argentina</span>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/miqueas-heredia-60b158146" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/miqueas-prog" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://miqueas-prog.github.io" target="_blank" rel="noopener">Portafolio</a>
+      </div>
     </div>
   </div>
 </footer>
