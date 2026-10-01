@@ -15,11 +15,43 @@
 <!-- FONDO DE PARTÍCULAS INTERACTIVAS -->
 <canvas id="particle-canvas"></canvas>
 
+<!-- WIDGET LATERAL IZQUIERDO (ESTADÍSTICAS / UPTIME) -->
+<aside class="side-widget side-widget-left" aria-hidden="true">
+  <div class="side-card">
+    <div class="side-card-header">
+      <span class="pulse-dot"></span>
+      <span>System Uptime</span>
+    </div>
+    <div class="side-metric">99.98%</div>
+    <div class="side-sub">MTTR &lt; 15 min</div>
+    <div class="side-stack-pills">
+      <span>PL/SQL</span>
+      <span>ITSM</span>
+      <span>Jira</span>
+      <span>Kibana</span>
+    </div>
+  </div>
+</aside>
+
+<!-- WIDGET LATERAL DERECHO (RELOJ & ACCESOS RÁPIDOS) -->
+<aside class="side-widget side-widget-right" aria-hidden="true">
+  <div class="side-card">
+    <div class="side-card-header">
+      <span>Córdoba, Arg</span>
+    </div>
+    <div class="side-clock" id="cba-clock-side">--:--:--</div>
+    <div class="side-socials">
+      <a href="https://github.com/miqueas-prog" target="_blank" rel="noopener" title="GitHub">GH</a>
+      <a href="https://www.linkedin.com/in/miqueas-heredia-60b158146" target="_blank" rel="noopener" title="LinkedIn">IN</a>
+    </div>
+  </div>
+</aside>
+
 <header class="site-header">
   <div class="header-inner">
     <a href="#top" class="logo">MH<span>TECH</span></a>
     
-    <!-- RELOJ EN TIEMPO REAL - CÓRDOBA -->
+    <!-- RELOJ EN TIEMPO REAL (HEADER MOBILE / COMPACTO) -->
     <div class="cba-clock" id="cba-clock" aria-label="Hora actual en Córdoba, Argentina">
       <span class="clock-dot"></span>
       <span class="clock-time">--:--:--</span>
