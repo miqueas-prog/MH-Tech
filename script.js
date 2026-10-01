@@ -69,9 +69,9 @@ function initTicketPanel() {
 
   const queue = [
     { id: '4471', desc: 'VPN no conecta — cuenta Claro',       status: 'open'     },
-    { id: '4472', desc: 'Login corporativo bloqueado — GM',     status: 'progress' },
-    { id: '4470', desc: 'Sync de base de datos técnicos',       status: 'resolved' },
-    { id: '4473', desc: 'Incidente de red y conectividad',      status: 'open'     },
+    { id: '4472', desc: 'Login corporativo bloqueado — GM',    status: 'progress' },
+    { id: '4470', desc: 'Sync de base de datos técnicos',        status: 'resolved' },
+    { id: '4473', desc: 'Incidente de red y conectividad',     status: 'open'     },
     { id: '4474', desc: 'Monitoreo de APIs en Kibana',          status: 'progress' },
     { id: '4468', desc: 'Automatización con Power Automate',    status: 'resolved' },
     { id: '4475', desc: 'Acceso bloqueado — cuenta GM',         status: 'open'     },
@@ -156,15 +156,15 @@ function initWhatsApp() {
   </svg>`;
 
   Object.assign(btn.style, {
-    position:        'fixed',
+    position:         'fixed',
     bottom:          '24px',
-    right:           '24px',
+    right:            '24px',
     backgroundColor: '#25d366',
-    color:           '#fff',
+    color:            '#fff',
     width:           '56px',
-    height:          '56px',
+    height:           '56px',
     borderRadius:    '50%',
-    display:         'flex',
+    display:          'flex',
     alignItems:      'center',
     justifyContent:  'center',
     boxShadow:       '0 4px 14px rgba(0,0,0,0.4)',
@@ -173,11 +173,11 @@ function initWhatsApp() {
   });
 
   btn.addEventListener('mouseenter', () => {
-    btn.style.transform       = 'scale(1.1)';
+    btn.style.transform        = 'scale(1.1)';
     btn.style.backgroundColor = '#20ba5a';
   });
   btn.addEventListener('mouseleave', () => {
-    btn.style.transform       = 'scale(1)';
+    btn.style.transform        = 'scale(1)';
     btn.style.backgroundColor = '#25d366';
   });
 
