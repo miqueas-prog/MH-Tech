@@ -4,11 +4,12 @@
    3. Panel de tickets animado
    4. Relojes en tiempo real (Córdoba, Argentina)
    5. Contadores dinámicos de estadísticas
-   6. Fondo de partículas interactivas
+   6. Fondo de partículas, rejilla y luces ambientales
    7. Copiar email
    8. Toggle día/noche
    9. Botón flotante WhatsApp
    10. Animación de entrada al scroll (reveal)
+   11. Simulador interativo de consola de código (Widget derecho)
 */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initWhatsApp();
   initReveal();
+  initCodeSimulator();
 });
 
 /* 1. MENÚ MOBILE ---------------------------------------------------- */
@@ -165,7 +167,7 @@ function initStatCounters() {
   observer.observe(statsSection);
 }
 
-/* 6. FONDO DE PARTÍCULAS INTERACTIVAS ------------------------------- */
+/* 6. FONDO DE PARTÍCULAS, REJILLA Y LUCES AMBIENTALES ---------------- */
 function initParticles() {
   const canvas = document.getElementById('particle-canvas');
   if (!canvas) return;
@@ -196,8 +198,8 @@ function initParticles() {
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.6,
-      vy: (Math.random() - 0.5) * 0.6,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
       radius: Math.random() * 2 + 1
     });
   }
@@ -205,6 +207,24 @@ function initParticles() {
   function animate() {
     ctx.clearRect(0, 0, width, height);
 
+    // Dibujar rejilla geométrica sutil en cascada
+    ctx.strokeStyle = document.body.classList.contains('light') ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.02)';
+    ctx.lineWidth = 1;
+    const gridSize = 60;
+    const scrollOffset = (window.scrollY * 0.2) % gridSize;
+
+    ctx.beginPath();
+    for (let x = 0; x < width; x += gridSize) {
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, height);
+    }
+    for (let y = -gridSize + scrollOffset; y < height; y += gridSize) {
+      ctx.moveTo(0, y);
+      ctx.lineTo(width, y);
+    }
+    ctx.stroke();
+
+    // Actualizar y dibujar partículas y conexiones
     particles.forEach((p, index) => {
       p.x += p.vx;
       p.y += p.vy;
@@ -214,7 +234,7 @@ function initParticles() {
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(51, 214, 224, 0.4)';
+      ctx.fillStyle = 'rgba(51, 214, 224, 0.45)';
       ctx.fill();
 
       for (let j = index + 1; j < particles.length; j++) {
@@ -355,4 +375,72 @@ function initReveal() {
   }, { threshold: 0.1 });
 
   targets.forEach(el => observer.observe(el));
+}
+
+/* 11. SIMULADOR INTERACTIVO DE CÓDIGO (WIDGET DERECHO) -------------- */
+function initCodeSimulator() {
+  const bodyEl = document.getElementById('code-sim-body');
+  const langEl = document.getElementById('code-sim-lang');
+  if (!bodyEl || !langEl) return;
+
+  const snippets = [
+    {
+      lang: 'HTML5',
+      lines: [
+        '<span class="token-keyword">&lt;div</span> class=<span class="token-string">"core-sys"</span><span class="token-keyword">&gt;</span>',
+        '  <span class="token-keyword">&lt;h1&gt;</span>MH Tech Ops<span class="token-keyword">&lt;/h1&gt;</span>',
+        '  <span class="token-keyword">&lt;p&gt;</span>Active Node<span class="token-keyword">&lt;/p&gt;</span>',
+        '<span class="token-keyword">&lt;/div&gt;</span>'
+      ]
+    },
+    {
+      lang: 'CSS3',
+      lines: [
+        '<span class="token-var">.mh-grid</span> {',
+        '  display: <span class="token-string">grid</span>;',
+        '  background: <span class="token-string">var(--bg)</span>;',
+        '  backdrop-filter: <span class="token-string">blur(12px)</span>;',
+        '}'
+      ]
+    },
+    {
+      lang: 'JS (ES6)',
+      lines: [
+        '<span class="token-keyword">const</span> <span class="token-var">deployNode</span> = <span class="token-keyword">async</span> () =&gt; {',
+        '  <span class="token-keyword">await</span> sys.connect(<span class="token-string">"CORDOBA-01"</span>);',
+        '  console.log(<span class="token-string">"Status: OK"</span>);',
+        '};'
+      ]
+    },
+    {
+      lang: 'SQL',
+      lines: [
+        '<span class="token-keyword">SELECT</span> incident_id, status',
+        '<span class="token-keyword">FROM</span> tech_tickets',
+        '<span class="token-keyword">WHERE</span> priority = <span class="token-string">"CRITICAL"</span>',
+        '<span class="token-keyword">ORDER BY</span> timestamp DESC;'
+      ]
+    },
+    {
+      lang: 'Oracle',
+      lines: [
+        '<span class="token-keyword">BEGIN</span>',
+        '  DBMS_OUTPUT.PUT_LINE(<span class="token-string">"Sync OK"</span>);',
+        '  <span class="token-keyword">COMMIT</span>;',
+        '<span class="token-keyword">END</span>;'
+      ]
+    }
+  ];
+
+  let index = 0;
+
+  function renderSnippet() {
+    const current = snippets[index % snippets.length];
+    langEl.textContent = current.lang;
+    bodyEl.innerHTML = current.lines.map(l => `<div class="code-line">${l}</div>`).join('');
+    index++;
+  }
+
+  renderSnippet();
+  setInterval(renderSnippet, 3500);
 }
