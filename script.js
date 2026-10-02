@@ -1,3 +1,7 @@
+Ejecutó un comando
+bash
+
+cat > /mnt/user-data/outputs/script.js << 'JSEOF'
 /* MH TECH — script.js
    1. Menú mobile
    2. Scroll-spy
@@ -9,7 +13,8 @@
    8. Toggle día/noche
    9. Botón flotante WhatsApp
    10. Animación de entrada al scroll (reveal)
-   11. Simulador interativo de consola de código (Widget derecho)
+   11. Simulador interactivo de consola de código (Widget derecho)
+   12. Estado del sistema en vivo (Widget izquierdo)
 */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -26,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initWhatsApp();
   initReveal();
   initCodeSimulator();
+  initSysStatus();
 });
 
 /* 1. MENÚ MOBILE ---------------------------------------------------- */
@@ -76,14 +82,14 @@ function initTicketPanel() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const queue = [
-    { id: '4471', desc: 'VPN no conecta — cuenta Claro',     status: 'open'     },
-    { id: '4472', desc: 'Login corporativo bloqueado — GM',    status: 'progress' },
-    { id: '4470', desc: 'Sync de base de datos técnicos',        status: 'resolved' },
-    { id: '4473', desc: 'Incidente de red y conectividad',     status: 'open'     },
-    { id: '4474', desc: 'Monitoreo de APIs en Kibana',          status: 'progress' },
-    { id: '4468', desc: 'Automatización con Power Automate',    status: 'resolved' },
-    { id: '4475', desc: 'Acceso bloqueado — cuenta GM',         status: 'open'     },
-    { id: '4476', desc: 'Script SQL para métricas operativas',   status: 'resolved' },
+    { id: '4471', desc: 'VPN no conecta — cuenta Claro',          status: 'open'     },
+    { id: '4472', desc: 'Login corporativo bloqueado — GM',        status: 'progress' },
+    { id: '4470', desc: 'Sync de base de datos técnicos',          status: 'resolved' },
+    { id: '4473', desc: 'Incidente de red y conectividad',         status: 'open'     },
+    { id: '4474', desc: 'Monitoreo de APIs en Kibana',             status: 'progress' },
+    { id: '4468', desc: 'Automatización con Power Automate',       status: 'resolved' },
+    { id: '4475', desc: 'Acceso bloqueado — cuenta GM',            status: 'open'     },
+    { id: '4476', desc: 'Script SQL para métricas operativas',     status: 'resolved' },
   ];
 
   const labels = { open: 'Abierto', progress: 'En curso', resolved: 'Resuelto' };
@@ -113,7 +119,6 @@ function initTicketPanel() {
 /* 4. RELOJES EN TIEMPO REAL (CÓRDOBA) -------------------------------- */
 function initCordobaClock() {
   const clockEl = document.querySelector('#cba-clock .clock-time');
-  const sideClockEl = document.getElementById('cba-clock-side');
 
   function updateClock() {
     try {
@@ -121,12 +126,10 @@ function initCordobaClock() {
       const options = { timeZone: 'America/Argentina/Cordoba', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
       const timeStr = new Intl.DateTimeFormat('es-AR', options).format(now);
       if (clockEl) clockEl.textContent = timeStr;
-      if (sideClockEl) sideClockEl.textContent = timeStr;
     } catch (e) {
       const now = new Date();
       const timeStr = now.toTimeString().split(' ')[0];
       if (clockEl) clockEl.textContent = timeStr;
-      if (sideClockEl) sideClockEl.textContent = timeStr;
     }
   }
 
@@ -182,14 +185,8 @@ function initParticles() {
   });
 
   const mouse = { x: null, y: null, radius: 150 };
-  window.addEventListener('mousemove', e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
-  window.addEventListener('mouseout', () => {
-    mouse.x = null;
-    mouse.y = null;
-  });
+  window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
 
   const particleCount = Math.min(width > 768 ? 65 : 30, 75);
   const particles = [];
@@ -206,10 +203,8 @@ function initParticles() {
 
   function animate() {
     ctx.clearRect(0, 0, width, height);
-
     const isLight = document.body.classList.contains('light');
 
-    // 1. Dibujar luces ambientales persistentes (esquinas/centro con degradado)
     const grad1 = ctx.createRadialGradient(width * 0.75, height * 0.25, 50, width * 0.75, height * 0.25, width * 0.6);
     grad1.addColorStop(0, isLight ? 'rgba(51, 214, 224, 0.12)' : 'rgba(51, 214, 224, 0.08)');
     grad1.addColorStop(1, 'transparent');
@@ -222,28 +217,18 @@ function initParticles() {
     ctx.fillStyle = grad2;
     ctx.fillRect(0, 0, width, height);
 
-    // 2. Rejilla geométrica sutil en desplazamiento continuo con el scroll
     ctx.strokeStyle = isLight ? 'rgba(0,0,0,0.035)' : 'rgba(255,255,255,0.025)';
     ctx.lineWidth = 1;
     const gridSize = 70;
     const scrollOffset = (window.scrollY * 0.15) % gridSize;
 
     ctx.beginPath();
-    for (let x = 0; x < width; x += gridSize) {
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x, height);
-    }
-    for (let y = -gridSize + scrollOffset; y < height; y += gridSize) {
-      ctx.moveTo(0, y);
-      ctx.lineTo(width, y);
-    }
+    for (let x = 0; x < width; x += gridSize) { ctx.moveTo(x, 0); ctx.lineTo(x, height); }
+    for (let y = -gridSize + scrollOffset; y < height; y += gridSize) { ctx.moveTo(0, y); ctx.lineTo(width, y); }
     ctx.stroke();
 
-    // 3. Partículas y conexiones interactivas
     particles.forEach((p, index) => {
-      p.x += p.vx;
-      p.y += p.vy;
-
+      p.x += p.vx; p.y += p.vy;
       if (p.x < 0 || p.x > width) p.vx *= -1;
       if (p.y < 0 || p.y > height) p.vy *= -1;
 
@@ -257,11 +242,9 @@ function initParticles() {
         const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
         if (dist < 130) {
           ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(p2.x, p2.y);
+          ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y);
           ctx.strokeStyle = isLight ? `rgba(15, 23, 42, ${0.12 * (1 - dist / 130)})` : `rgba(51, 214, 224, ${0.18 * (1 - dist / 130)})`;
-          ctx.lineWidth = 0.8;
-          ctx.stroke();
+          ctx.lineWidth = 0.8; ctx.stroke();
         }
       }
 
@@ -269,11 +252,9 @@ function initParticles() {
         const mouseDist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
         if (mouseDist < mouse.radius) {
           ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(mouse.x, mouse.y);
+          ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y);
           ctx.strokeStyle = `rgba(180, 77, 255, ${0.3 * (1 - mouseDist / mouse.radius)})`;
-          ctx.lineWidth = 0.9;
-          ctx.stroke();
+          ctx.lineWidth = 0.9; ctx.stroke();
         }
       }
     });
@@ -288,10 +269,8 @@ function initParticles() {
 function initCopyEmail() {
   const btn = document.getElementById('copy-email');
   if (!btn) return;
-
   const email = btn.dataset.email;
   const orig  = btn.textContent;
-
   btn.addEventListener('click', e => {
     if (!navigator.clipboard) return;
     e.preventDefault();
@@ -306,15 +285,9 @@ function initCopyEmail() {
 function initTheme() {
   const btn = document.getElementById('theme-toggle');
   if (!btn) return;
-
   const saved = localStorage.getItem('mhtech-theme');
-  if (saved === 'light') {
-    document.body.classList.add('light');
-    btn.textContent = '🌙';
-  } else {
-    btn.textContent = '☀️';
-  }
-
+  if (saved === 'light') { document.body.classList.add('light'); btn.textContent = '🌙'; }
+  else { btn.textContent = '☀️'; }
   btn.addEventListener('click', () => {
     const isLight = document.body.classList.toggle('light');
     btn.textContent = isLight ? '🌙' : '☀️';
@@ -325,70 +298,35 @@ function initTheme() {
 /* 9. WHATSAPP FLOTANTE ---------------------------------------------- */
 function initWhatsApp() {
   if (document.getElementById('whatsapp-float')) return;
-
   const btn = document.createElement('a');
-  btn.id  = 'whatsapp-float';
-  btn.href   = 'https://wa.me/5493518587200?text=Hola,%20vi%20la%20web%20de%20MH%20TECH%20y%20necesito%20soporte%20técnico.';
-  btn.target = '_blank';
-  btn.rel    = 'noopener noreferrer';
+  btn.id = 'whatsapp-float';
+  btn.href = 'https://wa.me/5493518587200?text=Hola,%20vi%20la%20web%20de%20MH%20TECH%20y%20necesito%20soporte%20técnico.';
+  btn.target = '_blank'; btn.rel = 'noopener noreferrer';
   btn.setAttribute('aria-label', 'Contactar por WhatsApp');
-
-  btn.innerHTML = `<svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-  </svg>`;
-
-  Object.assign(btn.style, {
-    position:         'fixed',
-    bottom:          '24px',
-    right:            '24px',
-    backgroundColor: '#25d366',
-    color:            '#fff',
-    width:           '56px',
-    height:          '56px',
-    borderRadius:    '50%',
-    display:          'flex',
-    alignItems:      'center',
-    justifyContent:  'center',
-    boxShadow:       '0 4px 14px rgba(0,0,0,0.4)',
-    zIndex:          '9999',
-    transition:      'transform 0.3s ease, background-color 0.3s ease',
-  });
-
-  btn.addEventListener('mouseenter', () => {
-    btn.style.transform         = 'scale(1.1)';
-    btn.style.backgroundColor = '#20ba5a';
-  });
-  btn.addEventListener('mouseleave', () => {
-    btn.style.transform         = 'scale(1)';
-    btn.style.backgroundColor = '#25d366';
-  });
-
+  btn.innerHTML = `<svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>`;
+  Object.assign(btn.style, { position:'fixed', bottom:'24px', right:'24px', backgroundColor:'#25d366', color:'#fff', width:'56px', height:'56px', borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', boxShadow:'0 4px 14px rgba(0,0,0,0.4)', zIndex:'9999', transition:'transform 0.3s ease, background-color 0.3s ease' });
+  btn.addEventListener('mouseenter', () => { btn.style.transform = 'scale(1.1)'; btn.style.backgroundColor = '#20ba5a'; });
+  btn.addEventListener('mouseleave', () => { btn.style.transform = 'scale(1)'; btn.style.backgroundColor = '#25d366'; });
   document.body.appendChild(btn);
 }
 
 /* 10. SCROLL REVEAL -------------------------------------------------- */
 function initReveal() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  const targets = document.querySelectorAll(
-    '.service-card, .stat-item, .process-step, .stack-cat, .project-card'
-  );
-
+  const targets = document.querySelectorAll('.service-card, .stat-item, .process-step, .stack-cat, .project-card');
   targets.forEach(el => {
-    el.style.opacity   = '0';
+    el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   });
-
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
-      entry.target.style.opacity   = '1';
+      entry.target.style.opacity = '1';
       entry.target.style.transform = 'translateY(0)';
       observer.unobserve(entry.target);
     });
   }, { threshold: 0.1 });
-
   targets.forEach(el => observer.observe(el));
 }
 
@@ -399,63 +337,40 @@ function initCodeSimulator() {
   if (!bodyEl || !langEl) return;
 
   const snippets = [
-    {
-      lang: 'HTML5',
-      lines: [
-        '<span class="token-keyword">&lt;div</span> class=<span class="token-string">"core-sys"</span><span class="token-keyword">&gt;</span>',
-        '  <span class="token-keyword">&lt;h1&gt;</span>MH Tech Ops<span class="token-keyword">&lt;/h1&gt;</span>',
-        '  <span class="token-keyword">&lt;p&gt;</span>Active Node<span class="token-keyword">&lt;/p&gt;</span>',
-        '<span class="token-keyword">&lt;/div&gt;</span>'
-      ]
-    },
-    {
-      lang: 'CSS3',
-      lines: [
-        '<span class="token-var">.mh-grid</span> {',
-        '  display: <span class="token-string">grid</span>;',
-        '  background: <span class="token-string">var(--bg)</span>;',
-        '  backdrop-filter: <span class="token-string">blur(12px)</span>;',
-        '}'
-      ]
-    },
-    {
-      lang: 'JS (ES6)',
-      lines: [
-        '<span class="token-keyword">const</span> <span class="token-var">deployNode</span> = <span class="token-keyword">async</span> () =&gt; {',
-        '  <span class="token-keyword">await</span> sys.connect(<span class="token-string">"CORDOBA-01"</span>);',
-        '  console.log(<span class="token-string">"Status: OK"</span>);',
-        '};'
-      ]
-    },
-    {
-      lang: 'SQL',
-      lines: [
-        '<span class="token-keyword">SELECT</span> incident_id, status',
-        '<span class="token-keyword">FROM</span> tech_tickets',
-        '<span class="token-keyword">WHERE</span> priority = <span class="token-string">"CRITICAL"</span>',
-        '<span class="token-keyword">ORDER BY</span> timestamp DESC;'
-      ]
-    },
-    {
-      lang: 'Oracle',
-      lines: [
-        '<span class="token-keyword">BEGIN</span>',
-        '  DBMS_OUTPUT.PUT_LINE(<span class="token-string">"Sync OK"</span>);',
-        '  <span class="token-keyword">COMMIT</span>;',
-        '<span class="token-keyword">END</span>;'
-      ]
-    }
+    { lang: 'HTML5', lines: ['<span class="token-keyword">&lt;div</span> class=<span class="token-string">"core-sys"</span><span class="token-keyword">&gt;</span>', '  <span class="token-keyword">&lt;h1&gt;</span>MH Tech Ops<span class="token-keyword">&lt;/h1&gt;</span>', '  <span class="token-keyword">&lt;p&gt;</span>Active Node<span class="token-keyword">&lt;/p&gt;</span>', '<span class="token-keyword">&lt;/div&gt;</span>'] },
+    { lang: 'CSS3', lines: ['<span class="token-var">.mh-grid</span> {', '  display: <span class="token-string">grid</span>;', '  background: <span class="token-string">var(--bg)</span>;', '  backdrop-filter: <span class="token-string">blur(12px)</span>;', '}'] },
+    { lang: 'JS (ES6)', lines: ['<span class="token-keyword">const</span> <span class="token-var">deployNode</span> = <span class="token-keyword">async</span> () =&gt; {', '  <span class="token-keyword">await</span> sys.connect(<span class="token-string">"CORDOBA-01"</span>);', '  console.log(<span class="token-string">"Status: OK"</span>);', '};'] },
+    { lang: 'SQL', lines: ['<span class="token-keyword">SELECT</span> incident_id, status', '<span class="token-keyword">FROM</span> tech_tickets', '<span class="token-keyword">WHERE</span> priority = <span class="token-string">"CRITICAL"</span>', '<span class="token-keyword">ORDER BY</span> timestamp DESC;'] },
+    { lang: 'Oracle', lines: ['<span class="token-keyword">BEGIN</span>', '  DBMS_OUTPUT.PUT_LINE(<span class="token-string">"Sync OK"</span>);', '  <span class="token-keyword">COMMIT</span>;', '<span class="token-keyword">END</span>;'] }
   ];
 
   let index = 0;
-
   function renderSnippet() {
     const current = snippets[index % snippets.length];
     langEl.textContent = current.lang;
     bodyEl.innerHTML = current.lines.map(l => `<div class="code-line">${l}</div>`).join('');
     index++;
   }
-
   renderSnippet();
   setInterval(renderSnippet, 3500);
+}
+
+/* 12. ESTADO DEL SISTEMA EN VIVO (WIDGET IZQUIERDO) ----------------- */
+function initSysStatus() {
+  const latency = document.getElementById('sys-latency');
+  const cpuBar  = document.getElementById('sys-cpu');
+  const memBar  = document.getElementById('sys-mem');
+
+  function update() {
+    const lat = Math.floor(Math.random() * 18 + 8);
+    const cpu = Math.floor(Math.random() * 35 + 20);
+    const mem = Math.floor(Math.random() * 30 + 40);
+
+    if (latency) latency.textContent = lat + 'ms';
+    if (cpuBar)  cpuBar.style.width  = cpu + '%';
+    if (memBar)  memBar.style.width  = mem + '%';
+  }
+
+  update();
+  setInterval(update, 3000);
 }
