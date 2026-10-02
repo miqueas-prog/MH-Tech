@@ -1,7 +1,3 @@
-Ejecutó un comando
-bash
-
-cat > /mnt/user-data/outputs/script.js << 'JSEOF'
 /* MH TECH — script.js
    1. Menú mobile
    2. Scroll-spy
@@ -82,13 +78,13 @@ function initTicketPanel() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const queue = [
-    { id: '4471', desc: 'VPN no conecta — cuenta Claro',          status: 'open'     },
+    { id: '4471', desc: 'VPN no conecta — cuenta Claro',         status: 'open'      },
     { id: '4472', desc: 'Login corporativo bloqueado — GM',        status: 'progress' },
     { id: '4470', desc: 'Sync de base de datos técnicos',          status: 'resolved' },
-    { id: '4473', desc: 'Incidente de red y conectividad',         status: 'open'     },
+    { id: '4473', desc: 'Incidente de red y conectividad',         status: 'open'      },
     { id: '4474', desc: 'Monitoreo de APIs en Kibana',             status: 'progress' },
     { id: '4468', desc: 'Automatización con Power Automate',       status: 'resolved' },
-    { id: '4475', desc: 'Acceso bloqueado — cuenta GM',            status: 'open'     },
+    { id: '4475', desc: 'Acceso bloqueado — cuenta GM',            status: 'open'      },
     { id: '4476', desc: 'Script SQL para métricas operativas',     status: 'resolved' },
   ];
 
