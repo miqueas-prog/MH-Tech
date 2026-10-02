@@ -4,7 +4,7 @@
    3. Panel de tickets animado
    4. Relojes en tiempo real (Córdoba, Argentina)
    5. Contadores dinámicos de estadísticas
-   6. Fondo de partículas, rejilla y luces ambientales
+   6. Fondo de partículas, rejilla y luces ambientales persistentes
    7. Copiar email
    8. Toggle día/noche
    9. Botón flotante WhatsApp
@@ -167,7 +167,7 @@ function initStatCounters() {
   observer.observe(statsSection);
 }
 
-/* 6. FONDO DE PARTÍCULAS, REJILLA Y LUCES AMBIENTALES ---------------- */
+/* 6. FONDO DE PARTÍCULAS, REJILLA Y LUCES AMBIENTALES PERSISTENTES --- */
 function initParticles() {
   const canvas = document.getElementById('particle-canvas');
   if (!canvas) return;
@@ -191,15 +191,15 @@ function initParticles() {
     mouse.y = null;
   });
 
-  const particleCount = Math.min(width > 768 ? 60 : 30, 70);
+  const particleCount = Math.min(width > 768 ? 65 : 30, 75);
   const particles = [];
 
   for (let i = 0; i < particleCount; i++) {
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
       radius: Math.random() * 2 + 1
     });
   }
@@ -207,11 +207,26 @@ function initParticles() {
   function animate() {
     ctx.clearRect(0, 0, width, height);
 
-    // Dibujar rejilla geométrica sutil en cascada
-    ctx.strokeStyle = document.body.classList.contains('light') ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.02)';
+    const isLight = document.body.classList.contains('light');
+
+    // 1. Dibujar luces ambientales persistentes (esquinas/centro con degradado)
+    const grad1 = ctx.createRadialGradient(width * 0.75, height * 0.25, 50, width * 0.75, height * 0.25, width * 0.6);
+    grad1.addColorStop(0, isLight ? 'rgba(51, 214, 224, 0.12)' : 'rgba(51, 214, 224, 0.08)');
+    grad1.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad1;
+    ctx.fillRect(0, 0, width, height);
+
+    const grad2 = ctx.createRadialGradient(width * 0.2, height * 0.7, 50, width * 0.2, height * 0.7, width * 0.5);
+    grad2.addColorStop(0, isLight ? 'rgba(180, 77, 255, 0.09)' : 'rgba(180, 77, 255, 0.07)');
+    grad2.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad2;
+    ctx.fillRect(0, 0, width, height);
+
+    // 2. Rejilla geométrica sutil en desplazamiento continuo con el scroll
+    ctx.strokeStyle = isLight ? 'rgba(0,0,0,0.035)' : 'rgba(255,255,255,0.025)';
     ctx.lineWidth = 1;
-    const gridSize = 60;
-    const scrollOffset = (window.scrollY * 0.2) % gridSize;
+    const gridSize = 70;
+    const scrollOffset = (window.scrollY * 0.15) % gridSize;
 
     ctx.beginPath();
     for (let x = 0; x < width; x += gridSize) {
@@ -224,7 +239,7 @@ function initParticles() {
     }
     ctx.stroke();
 
-    // Actualizar y dibujar partículas y conexiones
+    // 3. Partículas y conexiones interactivas
     particles.forEach((p, index) => {
       p.x += p.vx;
       p.y += p.vy;
@@ -234,17 +249,17 @@ function initParticles() {
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(51, 214, 224, 0.45)';
+      ctx.fillStyle = isLight ? 'rgba(15, 23, 42, 0.35)' : 'rgba(51, 214, 224, 0.5)';
       ctx.fill();
 
       for (let j = index + 1; j < particles.length; j++) {
         const p2 = particles[j];
         const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-        if (dist < 120) {
+        if (dist < 130) {
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(p2.x, p2.y);
-          ctx.strokeStyle = `rgba(51, 214, 224, ${0.15 * (1 - dist / 120)})`;
+          ctx.strokeStyle = isLight ? `rgba(15, 23, 42, ${0.12 * (1 - dist / 130)})` : `rgba(51, 214, 224, ${0.18 * (1 - dist / 130)})`;
           ctx.lineWidth = 0.8;
           ctx.stroke();
         }
@@ -256,8 +271,8 @@ function initParticles() {
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = `rgba(180, 77, 255, ${0.25 * (1 - mouseDist / mouse.radius)})`;
-          ctx.lineWidth = 0.8;
+          ctx.strokeStyle = `rgba(180, 77, 255, ${0.3 * (1 - mouseDist / mouse.radius)})`;
+          ctx.lineWidth = 0.9;
           ctx.stroke();
         }
       }
