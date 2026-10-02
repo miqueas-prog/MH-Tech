@@ -15,38 +15,38 @@
   <canvas id="particle-canvas"></canvas>
 
   <!-- WIDGET LATERAL IZQUIERDO (Reloj y Redes) -->
-<aside class="side-widget side-widget-left">
-  <div class="side-card">
-    <div class="side-card-header">
-      <span class="pulse-dot"></span>
-      <span>System Status</span>
+  <aside class="side-widget side-widget-left">
+    <div class="side-card">
+      <div class="side-card-header">
+        <span class="pulse-dot"></span>
+        <span>System Status</span>
+      </div>
+      <div class="sys-status-list">
+        <div class="sys-status-row">
+          <span class="sys-status-label">Uptime</span>
+          <span class="sys-status-value sys-green">99.98%</span>
+        </div>
+        <div class="sys-status-row">
+          <span class="sys-status-label">Latencia</span>
+          <span class="sys-status-value sys-cyan" id="sys-latency">--ms</span>
+        </div>
+        <div class="sys-status-row">
+          <span class="sys-status-label">Nodo</span>
+          <span class="sys-status-value sys-cyan">CORDOBA-01</span>
+        </div>
+        <div class="sys-status-row">
+          <span class="sys-status-label">Estado</span>
+          <span class="sys-status-value sys-green">Óptimo ✓</span>
+        </div>
+      </div>
+      <div class="sys-bar-wrap">
+        <div class="sys-bar-label">CPU Load</div>
+        <div class="sys-bar-track"><div class="sys-bar-fill" id="sys-cpu"></div></div>
+        <div class="sys-bar-label">Memory</div>
+        <div class="sys-bar-track"><div class="sys-bar-fill sys-bar-violet" id="sys-mem"></div></div>
+      </div>
     </div>
-    <div class="sys-status-list">
-      <div class="sys-status-row">
-        <span class="sys-status-label">Uptime</span>
-        <span class="sys-status-value sys-green">99.98%</span>
-      </div>
-      <div class="sys-status-row">
-        <span class="sys-status-label">Latencia</span>
-        <span class="sys-status-value sys-cyan" id="sys-latency">--ms</span>
-      </div>
-      <div class="sys-status-row">
-        <span class="sys-status-label">Nodo</span>
-        <span class="sys-status-value sys-cyan">CORDOBA-01</span>
-      </div>
-      <div class="sys-status-row">
-        <span class="sys-status-label">Estado</span>
-        <span class="sys-status-value sys-green">Óptimo ✓</span>
-      </div>
-    </div>
-    <div class="sys-bar-wrap">
-      <div class="sys-bar-label">CPU Load</div>
-      <div class="sys-bar-track"><div class="sys-bar-fill" id="sys-cpu"></div></div>
-      <div class="sys-bar-label">Memory</div>
-      <div class="sys-bar-track"><div class="sys-bar-fill sys-bar-violet" id="sys-mem"></div></div>
-    </div>
-  </div>
-</aside>
+  </aside>
 
   <!-- WIDGET LATERAL DERECHO (Consola Interactiva de Código) -->
   <aside class="side-widget side-widget-right">
@@ -203,20 +203,19 @@
             <span class="service-arrow">Ver detalles →</span>
           </div>
           <div class="service-card">
-            <span class="service-icon">🗄️</span>
+            <span class="service-icon">🗄️️</span>
             <h3>Bases de Datos & SQL</h3>
             <p>Consultas avanzadas, mantenimiento preventivo, modelado y sincronización de bases de datos relacionales (Oracle / SQL).</p>
             <span class="service-arrow">Ver detalles →</span>
           </div>
+          <div class="service-card">
+            <span class="service-icon">🎨</span>
+            <h3>Diseño Web & Landing Pages</h3>
+            <p>Desarrollo de sitios modernos, responsivos y optimizados. Desde landing pages de alto impacto hasta portales corporativos, con foco en performance y experiencia de usuario.</p>
+            <span class="service-arrow">Ver detalles →</span>
+          </div>
         </div>
       </div>
-      <!-- NUEVA CARD DE SERVICIO — agregala después de la última card en .service-grid -->
-<div class="service-card">
-  <span class="service-icon">🎨</span>
-  <h3>Diseño Web & Landing Pages</h3>
-  <p>Desarrollo de sitios modernos, responsivos y optimizados. Desde landing pages de alto impacto hasta portales corporativos, con foco en performance y experiencia de usuario.</p>
-  <span class="service-arrow">Ver detalles →</span>
-</div>
     </section>
 
     <!-- SECCIÓN PROCESO -->
@@ -291,22 +290,21 @@
               <span class="stack-tag">Kibana / Logs</span>
             </div>
           </div>
+          <div class="stack-cat">
+            <div class="stack-cat-title">Diseño Web & Frontend</div>
+            <div class="stack-tags">
+              <span class="stack-tag">HTML5 / CSS3</span>
+              <span class="stack-tag">JavaScript (ES6+)</span>
+              <span class="stack-tag">Responsive Design</span>
+              <span class="stack-tag">FlutterFlow</span>
+              <span class="stack-tag">Firebase / Firestore</span>
+              <span class="stack-tag">Cloudflare</span>
+              <span class="stack-tag">Git & GitHub Pages</span>
+              <span class="stack-tag">Vibe Coding</span>
+            </div>
+          </div>
         </div>
       </div>
-      <!-- NUEVA CATEGORÍA EN STACK — agregala al final del .stack-grid -->
-<div class="stack-cat">
-  <div class="stack-cat-title">Diseño Web & Frontend</div>
-  <div class="stack-tags">
-    <span class="stack-tag">HTML5 / CSS3</span>
-    <span class="stack-tag">JavaScript (ES6+)</span>
-    <span class="stack-tag">Responsive Design</span>
-    <span class="stack-tag">FlutterFlow</span>
-    <span class="stack-tag">Firebase / Firestore</span>
-    <span class="stack-tag">Cloudflare</span>
-    <span class="stack-tag">Git & GitHub Pages</span>
-    <span class="stack-tag">Vibe Coding</span>
-  </div>
-</div>
     </section>
 
     <!-- SECCIÓN PROYECTOS -->
